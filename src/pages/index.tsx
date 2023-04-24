@@ -17,6 +17,7 @@ import { ActionButton } from '@/components/tools/ActionButton';
 import { useEffectOnlyOnUpdate } from '../hooks/useEffectOnlyOnUpdate';
 import { useLogin, useLoginInfo, useLogout } from '@useelven/core';
 import { LoginComponent } from '@/components/tools/LoginComponent';
+import { getLoginMethodDeviceName } from '../../utils/getSigningDeviceName';
 
 interface LoginModalButtonProps {
   onClose?: () => void;
@@ -48,6 +49,9 @@ const Home: FC<LoginModalButtonProps> = ({
   const onCloseComplete = () => {
     setLoggingInState('error', '');
   };
+
+  const ledgerOrPortalName = getLoginMethodDeviceName(loginMethod);
+
 
   return (
     <Layout>
@@ -99,7 +103,14 @@ const Home: FC<LoginModalButtonProps> = ({
                   zIndex="overlay"
                   inset={0}
                 >
+
                   <Stack alignItems="center">
+                    {ledgerOrPortalName ? (
+                      <>
+                        <Text fontSize="lg">Confirmation required</Text>
+                        <Text fontSize="sm">Approve on {ledgerOrPortalName}</Text>
+                      </>
+                    ) : null}
                     <Spinner
                       thickness="3px"
                       speed="0.4s"
