@@ -3,6 +3,8 @@ import { Box, Stack } from '@chakra-ui/react';
 import { ActionButton } from '@/components/tools/ActionButton';
 import { useLogin, LoginMethodsEnum } from '@useelven/core';
 import { WalletConnectQRCode } from '@/components/tools/WalletConnectQRCode';
+import { WalletConnectPairings } from '@/components/tools/WalletConnectPairings';
+
 
 
 export const LoginComponent = (() => {
@@ -72,6 +74,15 @@ export const LoginComponent = (() => {
                     <WalletConnectQRCode uri={walletConnectUri} />
                 </Box>
             )}
+            {loginMethod === LoginMethodsEnum.walletconnect &&
+                walletConnectPairings &&
+                walletConnectPairings.length > 0 && (
+                    <WalletConnectPairings
+                        pairings={walletConnectPairings}
+                        login={walletConnectPairingLogin}
+                        remove={walletConnectRemovePairing}
+                    />
+                )}
         </>
     );
 });
