@@ -67,9 +67,11 @@ export const LoginComponent = (() => {
                     </>
                 )}
             </Stack>
-            <Box mt={5}>
-                <WalletConnectQRCode uri={walletConnectUri} />
-            </Box>
+            {loginMethod === LoginMethodsEnum.walletconnect && walletConnectUri && (
+                <Box mt={5}>
+                    <WalletConnectQRCode uri={walletConnectUri} />
+                </Box>
+            )}
         </>
     );
 });
