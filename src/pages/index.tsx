@@ -9,6 +9,11 @@ import {
   Flex,
   ModalHeader,
   Stack,
+  Box,
+  Card,
+  CardHeader,
+  Heading,
+  CardBody
 } from '@chakra-ui/react';
 import { FC } from 'react';
 import Layout from '../components/Layout';
@@ -18,6 +23,8 @@ import { useEffectOnlyOnUpdate } from '../hooks/useEffectOnlyOnUpdate';
 import { useLogin, useLoginInfo, useLogout } from '@useelven/core';
 import { LoginComponent } from '@/components/tools/LoginComponent';
 import { getLoginMethodDeviceName } from '../../utils/getSigningDeviceName';
+import { Authenticated } from '@/components/tools/Authenticated';
+import {GetUserDataDemo} from '@/components/info/GetUserData';
 
 interface LoginModalButtonProps {
   onClose?: () => void;
@@ -124,6 +131,18 @@ const Home: FC<LoginModalButtonProps> = ({
             </ModalBody>
           </ModalContent>
         </Modal>
+        <Flex justifyContent="center" alignItems="center" height="50vh" gap={20}>
+          <Authenticated
+            spinnerCentered
+            fallback={
+              <Text fontWeight="bold" fontSize="2xl" textAlign="center" >
+                Connect your wallet!
+              </Text>
+            }
+          >
+            <GetUserDataDemo />
+          </Authenticated>
+        </Flex>
       </MyContainer>
     </Layout>
   )
