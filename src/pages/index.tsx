@@ -8,12 +8,7 @@ import {
   Spinner,
   Flex,
   ModalHeader,
-  Stack,
-  Box,
-  Card,
-  CardHeader,
-  Heading,
-  CardBody
+  Stack
 } from '@chakra-ui/react';
 import { FC } from 'react';
 import Layout from '../components/Layout';
@@ -30,7 +25,6 @@ interface LoginModalButtonProps {
   onClose?: () => void;
   onOpen?: () => void;
 }
-
 
 const Home: FC<LoginModalButtonProps> = ({
   onClose,
