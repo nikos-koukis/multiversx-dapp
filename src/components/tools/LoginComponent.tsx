@@ -4,7 +4,7 @@ import { ActionButton } from '@/components/tools/ActionButton';
 import { useLogin, LoginMethodsEnum } from '@useelven/core';
 import { WalletConnectQRCode } from '@/components/tools/WalletConnectQRCode';
 import { WalletConnectPairings } from '@/components/tools/WalletConnectPairings';
-
+import { LedgerAccountsList } from './LedgerAccountsList';
 
 
 export const LoginComponent = (() => {
@@ -35,6 +35,14 @@ export const LoginComponent = (() => {
         [login]
     );
 
+    const resetLoginMethod = useCallback(() => {
+        setLoginMethod(undefined);
+    }, []);
+
+    const handleLedgerAccountsList = useCallback(() => {
+        setLoginMethod(LoginMethodsEnum.ledger);
+    }, []);
+
     const backToOptions = useCallback(() => {
         setLoggingInState('error', '');
     }, [setLoggingInState]);
@@ -62,9 +70,18 @@ export const LoginComponent = (() => {
                         </ActionButton>
                         <ActionButton
                             isFullWidth
+                            onClick={handleLogin(LoginMethodsEnum.extension)}
+                        >
+                            MultiversX Browser Extension
+                        </ActionButton>
+                        <ActionButton
+                            isFullWidth
                             onClick={handleLogin(LoginMethodsEnum.walletconnect)}
                         >
                             xPortal Mobile App
+                        </ActionButton>
+                        <ActionButton isFullWidth onClick={handleLedgerAccountsList}>
+                            Ledger
                         </ActionButton>
                     </>
                 )}
@@ -83,6 +100,13 @@ export const LoginComponent = (() => {
                         remove={walletConnectRemovePairing}
                     />
                 )}
+            {loginMethod === LoginMethodsEnum.ledger && (
+                <LedgerAccountsList
+                    getHWAccounts={getHWAccounts}
+                    resetLoginMethod={resetLoginMethod}
+                    handleLogin={handleLogin}
+                />
+            )}
         </>
     );
 });
